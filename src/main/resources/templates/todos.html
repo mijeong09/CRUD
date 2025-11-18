@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>todos</title>
 </head>
 <body>
     <h1>할일목록</h1>
+    <a href="/todos/new">new</a>
+    <hr>
+
+<!--    <h3 th:text="${todos}"></h3>-->
+<!--    <h3 th:text="${todo.getTitle()}"></h3>-->
+    <div th:each="todo : ${todos}">
+        <h3 th:text="${todo.getTitle()}"></h3>
+        <a th:href="@{/todos/{id}(id=${todo.getId()})}">detail</a>
+    </div>
 </body>
 </html>
