@@ -12,5 +12,9 @@
     <h4 th:text="${todo.content}"></h4>
     <p th:text="${todo.completed ? '완료'  : '미완료'}"></p>
     <!--  thymeleaf가 todo.getTitle()을 호출함  -->
+
+    <hr>
+    <a th:href="@{/todos/{id}/edit(id=${todo.id})}">edit</a>
+    <a th:href="@{/todos/{id}/delete(id=${todo.id})}">delete</a>
 </body>
 </html>
