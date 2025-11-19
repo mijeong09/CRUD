@@ -1,20 +1,33 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>detail</title>
-</head>
-<body>
-    <h1>DETAIL</h1>
-    <a href="/todos">home</a>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}"
+>
 
-    <h2 th:text="${todo.title}"></h2>
-    <h4 th:text="${todo.content}"></h4>
-    <p th:text="${todo.completed ? '완료'  : '미완료'}"></p>
-    <!--  thymeleaf가 todo.getTitle()을 호출함  -->
+<div layout:fragment="content">
 
-    <hr>
-    <a th:href="@{/todos/{id}/edit(id=${todo.id})}">edit</a>
-    <a th:href="@{/todos/{id}/delete(id=${todo.id})}">delete</a>
-</body>
-</html>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title" th:text="${todo.title}"></h5>
+            <p class="card-text" th:text="${todo.content}"></p>
+            <p>
+                완료여부 :
+                <span th:if="${todo.completed}" class="badge bg-success">완료</span>
+                <span th:unless="${todo.completed}" class="badge bg-warning">진행중</span>
+            </p>
+        </div>
+    </div>
+
+
+    <a th:href="@{/todos/{id}/toggle(id=${todo.id})}" class="btn btn-primary">toggle</a>
+    <a th:href="@{/todos/{id}/edit(id=${todo.id})}" class="btn btn-warning">edit</a>
+    <a th:href="@{/todos/{id}/delete(id=${todo.id})}" class="btn btn-danger">delete</a>
+
+
+
+
+    <!--    <h2 th:text="${todo.title}"></h2>-->
+    <!--    <h4 th:text="${todo.content}"></h4>-->
+    <!--    <p th:text="${todo.completed ? '완료'  : '미완료'}"></p>-->
+    <!--    &lt;!&ndash;  thymeleaf가 todo.getTitle()을 호출함  &ndash;&gt;-->
+</div>
