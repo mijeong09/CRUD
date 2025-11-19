@@ -3,6 +3,7 @@ package com.example.todoapp.controller;
 import com.example.todoapp.dto.TodoDto;
 import com.example.todoapp.repository.TodoRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -99,5 +100,12 @@ public class TodoController {
         } catch (IllegalArgumentException e){
             return "redirect:/todos";
         }
+    }
+
+    @GetMapping("/todos/search")
+    public String search(@RequestParam String keyword, Model model) {
+        List<TodoDto> todos = todoRepository.findByTitleContaining(keyword);
+        model.addAttribute("todos", todos);
+        return "todos";
     }
 }
