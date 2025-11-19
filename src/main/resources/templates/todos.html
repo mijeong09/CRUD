@@ -29,7 +29,7 @@
                     <span th:unless="${todo.completed}" class="badge bg-warning">진행중</span>
                 </td>
                 <td>
-                    <a th:href="@{todos/{id}(id=${todo.id})}" class="btn btn-sm btn-primary">detail</a>
+                    <a th:href="@{/todos/{id}(id=${todo.id})}" class="btn btn-sm btn-primary">detail</a>
                 </td>
             </tr>
         </tbody>
