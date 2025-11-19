@@ -20,7 +20,8 @@ public class TodoappApplication {
 //            TodoRepository todoRepository = new TodoRepository();
             todoRepository.save(new TodoDto(null, "study", "JAVA", false));
             todoRepository.save(new TodoDto(null, "lunch", "ramen" , false));
-            todoRepository.save(new TodoDto(null, "workout", "run", false));
+            todoRepository.save(new TodoDto(null, "workout", "run", true));
+            todoRepository.save(new TodoDto(null, "dinner", "meat", true));
         };
     }
 }
