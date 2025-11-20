@@ -95,29 +95,21 @@ public class TodoController {
     @PostMapping("/{id}/update")
     public String update(
             @PathVariable Long id,
-//            @RequestParam String title,
-//            @RequestParam String content,
-//            @RequestParam(defaultValue = "false") Boolean completed,
             @ModelAttribute TodoDto todo,
             RedirectAttributes redirectAttributes) {
         try {
-//                TodoDto todo = todoRepository.findById(id)
-//                        .orElseThrow();
-//
-//                todo.setTitle(title);
-//                todo.setContent(content);
-//                todo.setCompleted(completed);
-
-//            todo.setId(id);
-//            todoRepository.save(todo);
-
             todoService.updateTodoById(id, todo);
             redirectAttributes.addFlashAttribute("message", "할 일이 수정되었습니다.");
 
-                return "redirect:/todos/" + id;
+            return "redirect:/todos/" + id;
         } catch (IllegalArgumentException e){
-            redirectAttributes.addFlashAttribute("message", "없는 할 일입니다.");
-            return "redirect:/todos";
+            if (e.getMessage().contains("제목")) {
+                redirectAttributes.addFlashAttribute("error", e.getMessage());
+                return "redirect:/todos/" + id + "/update";
+            } else {
+                redirectAttributes.addFlashAttribute("message", "없는 할일입니다.");
+                return "redirect:/todos";
+            }
         }
     }
 
