@@ -68,4 +68,20 @@ public class TodoService {
             throw new IllegalArgumentException("50자 이하로 해주세요.");
         }
     }
+
+    public long getTotalCount() {
+        return todoRepository.findAll().size();
+    }
+
+    public long getCompletedCount() {
+        return todoRepository.findByCompleted(true).size();
+    }
+
+    public long getActiveCount() {
+        return todoRepository.findByCompleted(false).size();
+    }
+
+    public void deleteCompletedTodos() {
+        todoRepository.deleteCompleted();
+    }
 }

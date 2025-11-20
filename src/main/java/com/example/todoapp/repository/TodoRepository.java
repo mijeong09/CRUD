@@ -31,10 +31,6 @@ public class TodoRepository {
         return Optional.ofNullable(storage.get(id));
     }
 
-    public void deleteById(Long id) {
-        storage.remove(id);
-    }
-
     public List<TodoDto> findByTitleContaining(String keyword) {
         return storage.values().stream()
                 .filter((todo) -> todo.getTitle().contains(keyword))
@@ -45,5 +41,14 @@ public class TodoRepository {
         return storage.values().stream()
                 .filter((todo) -> todo.isCompleted() == completed)
                 .toList();
+    }
+
+    public void deleteById(Long id) {
+        storage.remove(id);
+    }
+
+    public void deleteCompleted() {
+        storage.entrySet().removeIf(
+                item -> item.getValue().isCompleted() == true);
     }
 }
