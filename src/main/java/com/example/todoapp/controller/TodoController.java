@@ -13,12 +13,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/todos")
 public class TodoController {
-//    private final TodoRepository todoRepository = new TodoRepository();
-//    private final TodoRepository todoRepository;
-
-//    public TodoController(TodoRepository todoRepository) {
-//        this.todoRepository = todoRepository;
-//    }
 
     private final TodoService todoService;
 
@@ -46,32 +40,22 @@ public class TodoController {
 //    @GetMapping("/create")
     @PostMapping
     public String create(
-//            @RequestParam String title,
-//            @RequestParam String content,
             @ModelAttribute TodoDto todo,
             RedirectAttributes redirectAttributes
-//            Model model
     ) {
-//        TodoDto todoDto = new TodoDto(null, title, content, false);
-        // TodoRepository todoRepository = new TodoRepository();
-
-//        TodoDto todo = todoRepository.save(todoDto);
-//        todoRepository.save(todo);
-//        model.addAttribute("todo", todo);
-
-        todoService.createTodo(todo);
-        redirectAttributes.addFlashAttribute("message", "할 일이 생성되었습니다.");
-
-//        return "create";
-        return "redirect:/todos";
+        try {
+            todoService.createTodo(todo);
+            redirectAttributes.addFlashAttribute("message", "할 일이 생성되었습니다.");
+            return "redirect:/todos";
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/todos/new";
+        }
     }
 
     @GetMapping("/{id}")
     public String detail(@PathVariable Long id, Model model) {
         try {
-//            TodoDto todo = todoRepository.findById(id)
-//                    .orElseThrow(() -> new IllegalArgumentException("todo not found!!"));
-
             TodoDto todo = todoService.getTodoById(id);
             model.addAttribute("todo", todo);
             return "detail";
